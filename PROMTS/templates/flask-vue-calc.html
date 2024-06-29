@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Calculator</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <input v-model="num1" type="number" placeholder="Number 1" />
+      <input v-model="num2" type="number" placeholder="Number 2" />
+      <select v-model="operation">
+        <option value="add">+</option>
+        <option value="subtract">-</option>
+        <option value="multiply">*</option>
+        <option value="divide">/</option>
+      </select>
+      <button @click="calculate">Calculate</button>
+      <p>Result: {{ result }}</p>
+    </div>
+
+    <script>
+      new Vue({
+        el: '#app',
+        data: {
+          num1: 0,
+          num2: 0,
+          operation: 'add',
+          result: 0
+        },
+        methods: {
+          calculate() {
+            const data = {
+              num1: this.num1,
+              num2: this.num2,
+              operation: this.operation
+            };
+
+            axios.post('/calculate', data)
+              .then(response => {
+                this.result = response.data;
+              })
+              .catch(error => {
+                console.error(error);
+              });
+          }
+        }
+      });
+    </script>
+  </body>
+</html>

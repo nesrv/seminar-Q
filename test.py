@@ -1,4 +1,16 @@
-size = 10
+s = "123 3.14 True string"
 
-for i in range(1, size + 1):
-    print(f"{i:4}", end=" ")
+
+tp = int, float, bool, str
+
+
+# res = [(tp[idx],val) for idx, val  in enumerate(s.split())]
+
+res = [(tp[idx](val)) for idx, val  in enumerate(s.split())]
+
+
+print(res)
+
+from math import *
+
+print (eval("log10(100)"))

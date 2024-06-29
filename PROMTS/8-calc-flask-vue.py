@@ -1,19 +1,17 @@
-# calculator by python flask 
+# calculator by python flask and vue.js 
 
-from flask import Flask, render_template, request
+from flask import Flask, jsonify, request
+from flask_cors import CORS
 
 app = Flask(__name__)
-
-@app.route('/')
-def index():
-    # return render_template('index.html')
-    return render_template('flask-vue-calc.html')
+CORS(app)
 
 @app.route('/calculate', methods=['POST'])
 def calculate():
-    num1 = int(request.form['num1'])
-    num2 = int(request.form['num2'])
-    operation = request.form['operation']
+    data = request.get_json()
+    num1 = data['num1']
+    num2 = data['num2']
+    operation = data['operation']
     result = 0
 
     if operation == 'add':
@@ -26,9 +24,9 @@ def calculate():
         if num2 != 0:
             result = num1 / num2
         else:
-            return "Error: Division by zero is not allowed."
+            return jsonify({'error': 'Division by zero is not allowed.'}), 400
 
-    return str(result)
+    return jsonify({'result': result})
 
 if __name__ == '__main__':
     app.run(debug=True)
