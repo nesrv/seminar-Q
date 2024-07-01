@@ -1,4 +1,24 @@
 
+# search max value by ternary operator python
+# finding the largest of three numbers using pattern mathcing
+
+def max_of_three(a, b, c):
+    match a, b, c:
+        case x, y, z if x >= y and x >= z:
+            return x
+        case x, y, z if y >= x and y >= z:
+            return y
+        case x, y, z:
+            return z
+
+# Example usage
+print(max_of_three(10, 25, 8))  # Output: 25
+print(max_of_three(100, 50, 75))  # Output: 100
+print(max_of_three(7, 7, 7))  # Output: 7
+
+# using unitest
+
+
 # Пример 1. Создай программу для генерации случайных чисел
 
 `create a program to generate random numbers`
